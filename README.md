@@ -2,9 +2,8 @@ api.net
 ==============
 
 ## Overview
-Base Framework Client for fswire using Microsoft.Net and Mono and fswire server api.
 
-This is intended to be a fully functional client that will leverage the full fswire.com server api.
+Base Framework Client for fswire using Microsoft.Net and Mono and fswire server api. This is intended to be a fully functional client that will leverage the full fswire.com server api.
 
 Currently the library support both the REST and Streaming service endpoints with limited functionality.
 
