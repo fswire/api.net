@@ -39,8 +39,6 @@ namespace com.fswire
         public Boolean Authenticate(String apiKey)
         {
             throw new NotImplementedException();
-
-            return _isAuthenticated;
         }
         public Boolean Authenticate(String userId, String password)
         {

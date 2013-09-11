@@ -37,10 +37,10 @@ namespace com.fswire.streaming.api.rest
 
 
             string data = System.Text.Encoding.UTF8.GetString(result);
-            var template = new { disclaimer = String.Empty, license = String.Empty, timestamp = String.Empty, response = new List<Stream>() };
+            var template = new { disclaimer = String.Empty, license = String.Empty, timestamp = String.Empty, response = new ResponseStreamsObject() };
             var dataAsObj = JsonConvert.DeserializeAnonymousType(data, template);
 
-            _allStreams = dataAsObj.response;
+            _allStreams = dataAsObj.response.streams;
 
             foreach( Stream s in _allStreams)
             {
@@ -49,39 +49,20 @@ namespace com.fswire.streaming.api.rest
         }
 
     }
+    public class ResponseStreamsObject
+    {
+        public List<Stream> streams { get; set; }
+    }
     public class Stream
     {
-        private StreamEx _chat;
-
         internal Client client {get; set;}
         public string id { get; set; }
         public string name { get; set; }
         public string ticker { get; set; }
+        public string stream_name { get; set; }
+        public int level { get; set; }
+        public Stream parent {get; set;}
         
-        public string stream_name 
-        { 
-            get 
-            {
-                if (null == _chat)
-                {
-                    using (var webClient = new System.Net.WebClient())
-                    {
-                        byte[] result = webClient.DownloadData(String.Format("http://{0}/{1}/streams/{3}.json?auth_token={2}",
-                                                                Settings.Default.StreamingHostName,
-                                                                Settings.Default.ApiRoot,
-                                                                this.client.AuthToken,
-                                                                this.id));
-
-                        string data = System.Text.Encoding.UTF8.GetString(result);
-                        var template = new { chat = new StreamEx() };
-                        var dataAsObj = JsonConvert.DeserializeAnonymousType(data, template);
-                        _chat = dataAsObj.chat;
-
-                    }
-                }
-                return _chat.channel_presence_name;
-            } 
-        }
         private Channel _streamChannel;
 
         public Channel Subscribe()
@@ -96,9 +77,6 @@ namespace com.fswire.streaming.api.rest
                 _streamChannel.Unsubscribe();
 
         }
-        private class StreamEx
-        {
-            public string channel_presence_name { get; set; }
-        }
+
     }
 }

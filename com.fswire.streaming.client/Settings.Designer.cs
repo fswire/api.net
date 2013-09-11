@@ -52,7 +52,7 @@ namespace com.fswire {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("www.fswire.com")]
+        [global::System.Configuration.DefaultSettingValueAttribute("staging.fswire.com")]
         public string StreamingHostName {
             get {
                 return ((string)(this["StreamingHostName"]));
