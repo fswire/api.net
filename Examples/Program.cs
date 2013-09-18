@@ -62,7 +62,8 @@ namespace ExampleClient
             // Setup private channel
             try
             {
-                _streamChannel = _fswireClient.Streams.AllStreams.First(s => s.id.Equals("1") ).Subscribe();
+                //_streamChannel = _fswireClient.Streams.AllStreams.First(s => s.id.Equals("1") ).Subscribe();
+                _streamChannel = _fswireClient.Streams.Firehose.Subscribe();
                 _streamChannel.Subscribed += _streamChannelSubscribed;
             }
             catch (Exception ex)
