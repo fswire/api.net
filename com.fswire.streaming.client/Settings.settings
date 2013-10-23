@@ -12,7 +12,7 @@
       <Value Profile="(Default)">0.0.1</Value>
     </Setting>
     <Setting Name="StreamingHostName" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">staging.fswire.com</Value>
+      <Value Profile="(Default)">www.fswire.com</Value>
     </Setting>
     <Setting Name="ApiRoot" Type="System.String" Scope="Application">
       <Value Profile="(Default)">api/v1</Value>

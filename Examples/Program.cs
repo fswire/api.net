@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using com.fswire;
+using com.fswire.rest.api;
 using com.fswire.streaming.api;
 using System.Net;
 using System.Collections.Specialized;
@@ -14,7 +15,7 @@ namespace ExampleClient
     {
         static Channel _streamChannel = null;
         static Client _fswireClient = null;
-
+        static Stream _stream = null;
         static void Main(string[] args)
         {
             String email = String.Empty;
@@ -30,7 +31,11 @@ namespace ExampleClient
             _fswireClient = new com.fswire.Client();
             if (_fswireClient.Authenticate(email, password))
             {
+                _stream = _fswireClient.Streams.AllStreams.First(s => s.id.Equals("1"));
                 
+                //_stream = _fswireClient.Streams.Firehose;
+
+                _loadStreamHistory(_stream);
                 _fswireClient.StreamingConnection.Connected += _fswireClient_Connected;
                 _fswireClient.StreamingConnection.ConnectionStateChanged += _fswireClient_ConnectionStateChanged;
                 _fswireClient.StreamingConnection.Connect();
@@ -62,13 +67,20 @@ namespace ExampleClient
             // Setup private channel
             try
             {
-                //_streamChannel = _fswireClient.Streams.AllStreams.First(s => s.id.Equals("1") ).Subscribe();
-                _streamChannel = _fswireClient.Streams.Firehose.Subscribe();
+                _streamChannel = _stream.Subscribe();
+
                 _streamChannel.Subscribed += _streamChannelSubscribed;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+            }
+        }
+        static void _loadStreamHistory(Stream stream)
+        {
+            foreach (com.fswire.rest.api.Message m in stream.MessageHistory(0))
+            {
+                Console.WriteLine(m.message);
             }
         }
         static void _streamChannelSubscribed(object sender)

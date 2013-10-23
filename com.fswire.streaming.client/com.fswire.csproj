@@ -65,6 +65,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Client.cs" />
+    <Compile Include="rest.api\Message.cs" />
+    <Compile Include="rest.api\Stream.cs" />
+    <Compile Include="rest.api\Url.cs" />
+    <Compile Include="rest.api\User.cs" />
+    <Compile Include="rest.api\wrapper\Stream.cs" />
     <Compile Include="streaming.api\Channel.cs" />
     <Compile Include="streaming.api\ChannelTypes.cs" />
     <Compile Include="streaming.api\Connection.cs" />
